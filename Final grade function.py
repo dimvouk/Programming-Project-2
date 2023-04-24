@@ -18,16 +18,23 @@ def computeFinalGrades(grades):
             if np.all(row == row[0]):
               gradesFinal[i] = row[0]
             else:
-                row_without_min = row[row != np.nanmin(row)]
-                mean = np.mean(row_without_min)
+                # Sort the row in ascending order
+                sorted_row = np.sort(row)
+                # Remove the first occurrence of the minimum value
+                min_val = sorted_row[0]
+                min_index = np.where(row == min_val)[0][0]
+                sorted_row = np.delete(sorted_row, 0)
+                # Calculate the mean of the remaining values
+                mean = np.mean(sorted_row)
                 mean = np.array([mean])
+                print(mean)
                 # Round the final grade using the roundGrade function
                 gradesFinal[i] = roundGrade(mean)
     return gradesFinal
 
 #TESTING 
 
-# a =np.array([[7, 10, 7, 4], [12, 10, 10, 10], [7, -3, 7, 7]])
+a =np.array([[7], [12], [-3]])
 
  
-# print(computeFinalGrades(a))
+print(computeFinalGrades(a))
