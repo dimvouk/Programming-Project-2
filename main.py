@@ -49,15 +49,51 @@ while Script_bool == True:
                if not os.path.exists(file_name):
                    print("File not found.")
                else:
-                    try:``
+                    try:
                         data = np.loadtxt(file_name, delimiter=";", dtype=str)
+                        #Keep only grade values
+                        grades = data[1:, 2:]
+
+                        #Keep the shape of the grades array
+                        shape = grades.shape
                         break  # Exit the for loop if a valid filename is entered
                     except FileNotFoundError:
                            print("File not found. Please try again.")
                if attempt == max_attempts - 1:
                     print(f"Maximum attempts ({max_attempts}) reached. Exiting...")
                     break  # Exit the for loop if the maximum number of attempts is reached
+        # 2.Check for data errors
+       if option == menuItems[1]:
+                        
+            #Keep the students Id in an array
+            studentsid=data[1:,:1]
+            
+            # Check if there are repeated elements
+            unique_arr = np.unique(studentsid)
+            if unique_arr.size < studentsid.size: 
+                print("There is an error. Some students have the same ID.")
+            else:
+                print("No errors appeared")
+                
+            # Check if the grades are on the right scale 
+            gradesscale = np.array(['-3', '0', '2', '4', '7', '10', '12'])
+            error = True
+            
+            for i in range(shape[0]):
+                for j in range(shape[1]):
+                    if grades[i,j] not in gradesscale:
+                        print(f"There is an error. The grade {grades[i,j]} is not on the 7-step-scale.")
+                        error = False
+               
+            if error == True :
+                print("All  grades are on the right scale")
+            
+            
 
+            
+            
+            
+            
     else: 
       print("Spelling wrong")
         
