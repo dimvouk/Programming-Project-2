@@ -11,7 +11,7 @@ if not  os.path.exists(file_name):
         print("File not found.")
     
 #Load data from csv as strings
-data = np.loadtxt("gradesTest.csv", delimiter=";", dtype = str)
+data = np.loadtxt(file_name, delimiter=";", dtype = str)
 
 #Keep only grade values
 grades = data[1:, 2:]
